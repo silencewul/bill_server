@@ -41,8 +41,8 @@ type User struct {
 	//LoginTime int    `json:"login_time,omitempty" xorm:"not null default 0 comment('最后登录时间') INT(11)"`
 	//LoginIp   string `json:"login_ip,omitempty" xorm:"not null default '' comment('最后登录IP') VARCHAR(64)"`
 	//CreatedIp string `json:"created_ip,omitempty" xorm:"not null default '' comment('注册IP') VARCHAR(64)"`
-	CreatedAt time.Time `json:"created_at,omitempty" xorm:"created not null default 0 comment('注册时间') INT(10)"`
-	UpdatedAt time.Time `json:"updated_at,omitempty" xorm:"updated not null default 0 comment('最后更新时间') index INT(10)"`
+	CreatedAt time.Time `json:"created_at,omitempty" xorm:"created comment('注册时间')"`
+	UpdatedAt time.Time `json:"updated_at,omitempty" xorm:"updated comment('最后更新时间')"`
 }
 
 func (user *User) HashPassword() {

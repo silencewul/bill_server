@@ -7,18 +7,17 @@ import (
 )
 
 type Bill struct {
-	Id int `json:"id" xorm:"not null pk autoincr comment('用户ID') INT(11)"`
-	UId int `json:"u_id" xorm:"INT(11)"`
-	Kind int `json:"kind" xorm:"INT(1)"`
-	Status int `json:"status" xorm:"INT(1)"`
-	Money float32 `json:"money" xorm:"FLOAT(10,2)"`
-	CategoryId int `json:"category_id"`
-	Date time.Time `json:"date"`
-	Note string `json:"note" xorm:"comment('备注') VARCHAR(255)"`
-	CreatedAt time.Time `json:"created_at,omitempty" xorm:"created not null default 0 comment('创建时间') INT(10)"`
-	UpdatedAt time.Time `json:"updated_at,omitempty" xorm:"updated not null default 0 comment('最后更新时间') index INT(10)"`
+	Id         int       `json:"id" xorm:"not null pk autoincr comment('用户ID') INT(11)"`
+	UId        int       `json:"u_id" xorm:"INT(11)"`
+	Kind       int       `json:"kind" xorm:"INT(1)"`
+	Status     int       `json:"status" xorm:"default 1 INT(1)"`
+	Money      float64   `json:"money" xorm:"default 0"`
+	CategoryId int       `json:"category_id"`
+	Date       string    `json:"date"`
+	Note       string    `json:"note" xorm:"comment('备注') VARCHAR(255)"`
+	CreatedAt  time.Time `json:"created_at,omitempty" xorm:"created comment('创建时间') "`
+	UpdatedAt  time.Time `json:"updated_at,omitempty" xorm:"updated comment('最后更新时间')"`
 }
-
 
 type BillList []*Bill
 
@@ -37,7 +36,26 @@ func (bill *Bill) Insert() error {
 	return nil
 }
 
-func GetUserTeachingCourse(userInfo *User) (BillList, error) {
+type BillCreatePayload struct {
+	Kind       int     `json:"kind" form:"kind"  binding:"required"`
+	Money      float64 `json:"money" form:"money"  binding:"required"`
+	CategoryId int     `json:"category_id" form:"category_id"  binding:"required"`
+	Date       string  `json:"date" form:"date"  binding:"required"`
+	Note       string  `json:"note"`
+}
+
+func (c BillCreatePayload) ToBill() *Bill {
+	return &Bill{
+		Kind:       c.Kind,
+		Status:     1,
+		Money:      c.Money,
+		CategoryId: c.CategoryId,
+		Date:       c.Date,
+		Note:       c.Note,
+	}
+}
+
+func GetBills(userInfo *User) (BillList, error) {
 	ses := MasterDB.NewSession()
 	defer ses.Close()
 
@@ -52,10 +70,8 @@ func GetUserTeachingCourse(userInfo *User) (BillList, error) {
 	//	return nil, nil, constant.ErrServerInternalError
 	//}
 
-
-
 	billList := make(BillList, 0)
-	_,err := ses.Get(BillList{})
+	_, err := ses.Get(BillList{})
 	//ses.Limit(paginator.Limit, paginator.Offset)
 
 	if err != nil {

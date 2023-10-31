@@ -13,8 +13,8 @@ func RegisterUserRoutes(g *gin.RouterGroup) {
 	g.POST("/bill/add", add)
 }
 
-func add(c *gin.Context)  {
-	payload := new(models.Bill)
+func add(c *gin.Context) {
+	payload := new(models.BillCreatePayload)
 	if err := c.ShouldBindJSON(payload); err != nil {
 		utils.SendErr(c, constant.ErrInvalidParams)
 		return
@@ -26,6 +26,5 @@ func add(c *gin.Context)  {
 		utils.SendErr(c, err)
 		return
 	}
-	utils.SendSucc(c,bill)
+	utils.SendSucc(c, bill)
 }
-

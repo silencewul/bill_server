@@ -21,14 +21,12 @@ func login(c *gin.Context) {
 		utils.SendErr(c, constant.ErrInvalidParams)
 		return
 	}
-
 	user, err := userLogic.Login(loginReq)
 
 	if err != nil {
 		utils.SendErr(c, err)
 		return
 	}
-
 	// 发放jwttoken
 	token, err := jwt_auth.NewToken(jwt.MapClaims{"id": user.Id})
 
@@ -36,7 +34,6 @@ func login(c *gin.Context) {
 		utils.SendErr(c, constant.ErrServerInternalError)
 		return
 	}
-
 	//缓存用户到sessions
 	if err := user.StoreToRedis(); err != nil {
 		utils.SendErr(c, constant.ErrServerInternalError)

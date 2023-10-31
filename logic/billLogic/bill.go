@@ -4,10 +4,11 @@ import (
 	"bill/models"
 )
 
-func InsertBill(b *models.Bill,u *models.User)(*models.Bill,error) {
-	b.UId = u.Id
-	if err := b.Insert(); err != nil {
+func InsertBill(b *models.BillCreatePayload, u *models.User) (*models.Bill, error) {
+	bill := b.ToBill()
+	bill.UId = 1
+	if err := bill.Insert(); err != nil {
 		return nil, err
 	}
-	return b, nil
+	return bill, nil
 }

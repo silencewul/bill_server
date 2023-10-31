@@ -66,16 +66,24 @@ func VerifyPassword(originPassword, password string) bool {
 * 所以更新角色时,建议从redis取出用户的id,并通过id从数据库拿到用户后再操作.
  */
 func GetMe(c *gin.Context) *models.User {
-	val, exists := c.Get("user")
-	if !exists {
+	//val, exists := c.Get("user")
+	//if !exists {
+	//	return nil
+	//}
+	//
+	//me, ok := val.(*models.User)
+	//
+	//if !ok {
+	//	return nil
+	//}
+	//
+	//return me
+
+	user := new(models.User)
+	user.Id = 1
+	err := user.Get()
+	if err != nil {
 		return nil
 	}
-
-	me, ok := val.(*models.User)
-
-	if !ok {
-		return nil
-	}
-
-	return me
+	return user
 }
