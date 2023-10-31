@@ -5,6 +5,7 @@ import (
 	"bill/modules/constant"
 	"bill/modules/log"
 	"bill/modules/utils"
+	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -58,4 +59,23 @@ func VerifyPassword(originPassword, password string) bool {
 
 	return err == nil
 
+}
+
+/* GetMe 获取当前登录的用户信息
+* 注意,由于用户是转成json缓存到redis里的,user表里某些字段在json转换时会被忽略掉。
+* 所以更新角色时,建议从redis取出用户的id,并通过id从数据库拿到用户后再操作.
+ */
+func GetMe(c *gin.Context) *models.User {
+	val, exists := c.Get("user")
+	if !exists {
+		return nil
+	}
+
+	me, ok := val.(*models.User)
+
+	if !ok {
+		return nil
+	}
+
+	return me
 }
