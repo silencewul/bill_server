@@ -59,8 +59,8 @@ func GetBills(userInfo *User) (BillList, error) {
 	ses := MasterDB.NewSession()
 	defer ses.Close()
 
-	ses.Where("user_id = ?", userInfo.Id)
-	ses.OrderBy("created_at DESC")
+	ses.Where("u_id = ?", userInfo.Id)
+	ses.OrderBy("date DESC")
 
 	//countSes := ses.Clone()
 	//defer countSes.Close()
@@ -71,11 +71,11 @@ func GetBills(userInfo *User) (BillList, error) {
 	//}
 
 	billList := make(BillList, 0)
-	_, err := ses.Get(BillList{})
+	err := ses.Find(&billList)
 	//ses.Limit(paginator.Limit, paginator.Offset)
 
 	if err != nil {
-		log.GetSugar().Errorf("课程搜索出错,sql错误:%s", err.Error())
+		log.GetSugar().Errorf("账单搜索出错,sql错误:%s", err.Error())
 		return nil, constant.ErrServerInternalError
 	}
 

@@ -11,6 +11,7 @@ import (
 
 func RegisterUserRoutes(g *gin.RouterGroup) {
 	g.POST("/bill/add", add)
+	g.GET("/bills", getBill)
 }
 
 func add(c *gin.Context) {
@@ -27,4 +28,14 @@ func add(c *gin.Context) {
 		return
 	}
 	utils.SendSucc(c, bill)
+}
+
+func getBill(c *gin.Context) {
+	userInfo := userLogic.GetMe(c)
+	bills,err := billLogic.GetUserBills(userInfo)
+	if err != nil {
+		utils.SendErr(c, err)
+		return
+	}
+	utils.SendSucc(c, bills)
 }
