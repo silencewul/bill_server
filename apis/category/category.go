@@ -13,7 +13,7 @@ func RegisterUserRoutes(g *gin.RouterGroup) {
 }
 
 func getCategory(c *gin.Context) {
-	str := c.Param("k")
+	str := c.Query("k")
 	v, err := strconv.ParseInt(str, 10, 0)
 	if err != nil {
 		utils.SendErr(c, constant.ErrInvalidParams)
