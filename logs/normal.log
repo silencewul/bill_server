@@ -38,3 +38,10 @@
 {"level":"INFO","ts":"2023-11-01T00:40:33.556+0800","caller":"middleware/zap.go:46","msg":"/api/bill/add","status":200,"method":"POST","path":"/api/bill/add","query":"","ip":"127.0.0.1","latency":232.7171171}
 {"level":"INFO","ts":"2023-11-01T00:40:38.904+0800","caller":"middleware/zap.go:46","msg":"/api/bill/add","status":200,"method":"POST","path":"/api/bill/add","query":"","ip":"127.0.0.1","latency":0.0162407}
 {"level":"INFO","ts":"2023-11-01T00:44:30.776+0800","caller":"middleware/zap.go:46","msg":"/api/bill/add","status":200,"method":"POST","path":"/api/bill/add","query":"","ip":"127.0.0.1","latency":207.968903}
+{"level":"INFO","ts":"2023-11-01T00:48:58.135+0800","caller":"middleware/zap.go:46","msg":"/api/bill/add","status":200,"method":"POST","path":"/api/bill/add","query":"","ip":"127.0.0.1","latency":44.1812189}
+{"level":"INFO","ts":"2023-12-24T21:05:59.307+0800","caller":"middleware/zap.go:46","msg":"/api/bills","status":404,"method":"GET","path":"/api/bills","query":"","ip":"127.0.0.1","latency":0}
+{"level":"INFO","ts":"2023-12-24T21:06:11.435+0800","caller":"middleware/zap.go:46","msg":"/api/bill/add","status":200,"method":"POST","path":"/api/bill/add","query":"","ip":"127.0.0.1","latency":0.015598}
+{"level":"INFO","ts":"2023-12-24T21:06:11.503+0800","caller":"middleware/zap.go:46","msg":"/api/bills","status":404,"method":"GET","path":"/api/bills","query":"","ip":"127.0.0.1","latency":0}
+{"level":"INFO","ts":"2023-12-24T21:06:15.436+0800","caller":"middleware/zap.go:46","msg":"/api/bills","status":404,"method":"GET","path":"/api/bills","query":"","ip":"127.0.0.1","latency":0}
+{"level":"INFO","ts":"2023-12-24T21:07:29.934+0800","caller":"middleware/zap.go:46","msg":"/api/bill/add","status":200,"method":"POST","path":"/api/bill/add","query":"","ip":"127.0.0.1","latency":0}
+{"level":"INFO","ts":"2023-12-24T21:07:42.992+0800","caller":"middleware/zap.go:46","msg":"/api/bills","status":404,"method":"GET","path":"/api/bills","query":"","ip":"127.0.0.1","latency":0}
